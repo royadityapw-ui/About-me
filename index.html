@@ -6,24 +6,36 @@
 
 <style>
   body {
-    background: #000;
-    color: #00ff99;
+    background: #ffffff;
+    color: #000000;
     font-family: monospace;
     font-size: 18px;
-    line-height: 1.6;
+    line-height: 1.7;
     padding: 40px;
+    font-weight: 600; /* thoda bold */
+  }
+
+  #hello {
+    text-align: center;
+    font-size: 22px;
+    margin-top: 20vh;
+  }
+
+  #text {
+    display: none;
+    white-space: pre-line;
   }
 </style>
 </head>
 
 <body>
 
+<div id="hello">Hello Buddy</div>
 <div id="text"></div>
 
 <audio id="typeSound" src="keyboard-typing-sound-effect-335503.mp3"></audio>
 
 <script>
-  // TEXT CONTENT
   const content = `Hey, I’m Aditya Singh — born in 2007 (the date doesn’t matter, the journey does).
 I’m currently pursuing pre-med, while also diving deep into coding and technology, because I believe curiosity across fields builds sharper perspectives and a stronger mind.
 
@@ -43,19 +55,21 @@ I believe in big dreams, quiet effort, and finding meaning even in random though
 Just a human — learning, leveling up, and enjoying the journey as it unfolds.`;
 
   const target = document.getElementById("text");
+  const hello = document.getElementById("hello");
   const sound = document.getElementById("typeSound");
 
   let index = 0;
-  const speed = 45; // SAME natural speed
+  const speed = 45;
 
-  sound.volume = 0.25; // safe & smooth
+  sound.volume = 0.2;
 
   function typeEffect() {
     if (index < content.length) {
-      target.innerHTML += content.charAt(index);
+      const char = content.charAt(index);
+      target.innerHTML += char;
 
-      // play sound only on visible characters
-      if (content.charAt(index) !== " " && content.charAt(index) !== "\n") {
+      // sound ONLY for actual letters
+      if (char !== " " && char !== "\n") {
         sound.currentTime = 0;
         sound.play().catch(() => {});
       }
@@ -65,10 +79,13 @@ Just a human — learning, leveling up, and enjoying the journey as it unfolds.`
     }
   }
 
-  // FLOW CONTROL
+  // FLOW
   window.onload = () => {
-    alert("Hello Buddy");
-    setTimeout(typeEffect, 2500);
+    setTimeout(() => {
+      hello.style.display = "none";
+      target.style.display = "block";
+      typeEffect();
+    }, 2500);
   };
 </script>
 
